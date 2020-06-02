@@ -7,12 +7,20 @@ namespace OWML.ModHelper.Interaction
     public class ModInteraction : IModInteraction
     {
         private readonly IList<IModBehaviour> _modList;
+
+        private readonly InterfaceProxyFactory _proxyFactory;
+
+        private readonly string _modUniqueName;
+
         private Dictionary<string, List<IModBehaviour>> _dependantDict = new Dictionary<string, List<IModBehaviour>>();
+
         private Dictionary<string, List<IModBehaviour>> _dependencyDict = new Dictionary<string, List<IModBehaviour>>();
 
-        public ModInteraction(IList<IModBehaviour> list)
+        public ModInteraction(IList<IModBehaviour> list, InterfaceProxyFactory proxyFactory, string modUniqueName)
         {
             _modList = list;
+            _modUniqueName = modUniqueName;
+            _proxyFactory = proxyFactory;
             RegenerateDictionaries();
         }
 
@@ -64,11 +72,35 @@ namespace OWML.ModHelper.Interaction
             return _modList.First(m => m.ModHelper.Manifest.UniqueName == uniqueName);
         }
 
+        public object GetInterface(string uniqueName)
+        {
+            var mod = _modList.First(m => m.ModHelper.Manifest.UniqueName == uniqueName);
+            return mod.Interface;
+        }
+
+        public T GetInterface<T>(string uniqueName) where T : class
+        {
+            object inter = this.GetInterface(uniqueName);
+            if (inter == null)
+            {
+                return null;
+            }
+
+            if (inter is T castInter)
+            {
+                return castInter;
+            }
+
+            return _proxyFactory.CreateProxy<T>(inter, _modUniqueName, uniqueName);
+        }
+
+        /*
         public T GetMod<T>(string uniqueName) where T : IModBehaviour
         {
             var mod = GetMod(uniqueName);
             return (T)mod;
         }
+        */
 
         public IList<IModBehaviour> GetMods()
         {

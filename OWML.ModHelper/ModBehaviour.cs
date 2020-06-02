@@ -8,6 +8,8 @@ namespace OWML.ModHelper
     {
         public IModHelper ModHelper { get; private set; }
 
+        public object Interface { get; private set; }
+
         public void Init(IModHelper modHelper)
         {
             ModHelper = modHelper;
@@ -27,6 +29,11 @@ namespace OWML.ModHelper
         public IList<IModBehaviour> GetDependencies()
         {
             return ModHelper.Interaction.GetDependencies(ModHelper.Manifest.UniqueName);
+        }
+
+        public void SetInterface(object inter)
+        {
+            this.Interface = inter;
         }
     }
 }

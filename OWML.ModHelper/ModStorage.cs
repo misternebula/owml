@@ -16,6 +16,9 @@ namespace OWML.ModHelper
             _manifest = manifest;
         }
 
+        /// <summary>Deserialize JSON file to given type.</summary>
+        /// <typeparam name="T">The type to deserialize the file to.</typeparam>
+        /// <param name="filename">The name of the file. The folder that the mod is in is automatically added to the beginning.</param>
         public T Load<T>(string filename)
         {
             var path = _manifest.ModFolderPath + filename;
@@ -35,6 +38,9 @@ namespace OWML.ModHelper
             }
         }
 
+        /// <summary>Serialize object to JSON file.</summary>
+        /// <typeparam name="T">The type to serialize.</typeparam>
+        /// <param name="filename">The name of the output file. The folder that the mod is in is automatically added to the beginning.</param>
         public void Save<T>(T obj, string filename)
         {
             var path = _manifest.ModFolderPath + filename;

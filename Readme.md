@@ -114,6 +114,7 @@ Feature requests, bug reports and PRs are welcome on GitHub.
 * [Outer Wilds on Discord](https://discord.gg/csKYR3w)
 * [Outer Wilds on Reddit](https://www.reddit.com/r/outerwilds)
 * Inspired by [SMAPI](https://smapi.io)
+* Mod Interaction code partly adapted from [SMAPI](https://smapi.io)
 * Texture_Turtle for graphics on [Nexus page](https://www.nexusmods.com/outerwilds/mods/1)
 * [TAImatem](https://github.com/TAImatem) and [Raicuparta](https://github.com/Raicuparta/) for research
 

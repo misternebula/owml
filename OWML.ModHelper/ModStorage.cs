@@ -39,7 +39,8 @@ namespace OWML.ModHelper
         }
 
         /// <summary>Serialize object to JSON file.</summary>
-        /// <typeparam name="T">The type to serialize.</typeparam>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="obj">The object to serialize.</param>
         /// <param name="filename">The name of the output file. The folder that the mod is in is automatically added to the beginning.</param>
         public void Save<T>(T obj, string filename)
         {

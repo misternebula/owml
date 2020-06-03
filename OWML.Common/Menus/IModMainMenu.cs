@@ -1,9 +1,10 @@
-﻿namespace OWML.Common.Menus
+﻿#pragma warning disable 1591
+
+namespace OWML.Common.Menus
 {
     public interface IModMainMenu : IModMenu
     {
         IModTabbedMenu OptionsMenu { get; }
-
         IModButton ResumeExpeditionButton { get; }
         IModButton NewExpeditionButton { get; }
         IModButton OptionsButton { get; }

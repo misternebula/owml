@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace OWML.ModHelper.Interaction
 {
+    /// <summary>Per-mod handler for interaction between mods.</summary>
     public class ModInteraction : IModInteraction
     {
         private readonly IList<IModBehaviour> _modList;
@@ -16,6 +17,10 @@ namespace OWML.ModHelper.Interaction
 
         private Dictionary<string, List<IModBehaviour>> _dependencyDict = new Dictionary<string, List<IModBehaviour>>();
 
+        /// <summary>Construct an instance.</summary>
+        /// <param name="list">The list of loaded mods.</param>
+        /// <param name="proxyFactory">The proxy factory instance.</param>
+        /// <param name="manifest">The manifest of the mod this instance is attached to.</param>
         public ModInteraction(IList<IModBehaviour> list, InterfaceProxyFactory proxyFactory, IModManifest manifest)
         {
             _modList = list;
@@ -81,7 +86,7 @@ namespace OWML.ModHelper.Interaction
         private object GetApi(string uniqueName)
         {
             var mod = GetMod(uniqueName);
-            return mod.Interface;
+            return mod.Api;
         }
 
         /// <summary>Get the API of a given mod.</summary>

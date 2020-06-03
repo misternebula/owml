@@ -46,7 +46,7 @@ namespace OWML.ModLoader
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
         }
 

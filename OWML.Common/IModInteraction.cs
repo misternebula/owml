@@ -2,6 +2,7 @@
 
 namespace OWML.Common
 {
+    /// <summary>Per-mod handler for interaction between mods.</summary>
     public interface IModInteraction
     {
         /// <summary>Returns list of mods that depend on the given mod.</summary>
@@ -17,7 +18,7 @@ namespace OWML.Common
         IModBehaviour GetMod(string uniqueName);
 
         /// <summary>Get the API of a given mod.</summary>
-        /// <typeparam name="TInterface">The interface through which to access the API.</typeparam>
+        /// <typeparam name="T">The interface through which to access the API.</typeparam>
         /// <param name="uniqueName">The unique name of the mod providing the API.</param>
         T GetApi<T>(string uniqueName) where T : class;
 

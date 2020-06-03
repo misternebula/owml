@@ -6,17 +6,26 @@ namespace OWML.ModHelper
 {
     public class ModBehaviour : MonoBehaviour, IModBehaviour
     {
+        /// <summary>
+        /// The attached ModHelper.
+        /// </summary>
         public IModHelper ModHelper { get; private set; }
 
-        public object Interface { get; private set; }
+        /// <summary>
+        /// The mod API.
+        /// </summary>
+        public object Api { get; private set; }
 
+        /// <summary>
+        /// Set up the mod behaviour.
+        /// </summary>
+        /// <param name="modHelper">ModHelper to set up with.</param>
         public void Init(IModHelper modHelper)
         {
             ModHelper = modHelper;
             Configure(modHelper.Config);
             DontDestroyOnLoad(gameObject);
-            Interface = GetApi();
-            if (Interface != null) ModHelper.Console.WriteLine("Interface is not null!");
+            Api = GetApi();
         }
 
         public virtual void Configure(IModConfig config)

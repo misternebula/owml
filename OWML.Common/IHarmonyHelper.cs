@@ -13,7 +13,7 @@ namespace OWML.Common
         void AddPrefix<T>(string methodName, Type patchType, string patchMethodName);
 
         /// <summary>Add prefix patch to the given method.</summary>
-        /// <param name="original">The method to patch.</param>
+        /// <param name="methodInfo">The method to patch.</param>
         /// <param name="patchType">The type the patch is in.</param>
         /// <param name="patchMethodName">The name of the patch method.</param>
         void AddPrefix(MethodInfo methodInfo, Type patchType, string patchMethodName);
@@ -26,7 +26,7 @@ namespace OWML.Common
         void AddPostfix<T>(string methodName, Type patchType, string patchMethodName);
 
         /// <summary>Add postfix patch to the given method.</summary>
-        /// <param name="original">The method to patch.</param>
+        /// <param name="methodInfo">The method to patch.</param>
         /// <param name="patchType">The type the patch is in.</param>
         /// <param name="patchMethodName">The name of the patch method.</param>
         void AddPostfix(MethodInfo methodInfo, Type patchType, string patchMethodName);
@@ -48,7 +48,7 @@ namespace OWML.Common
         void Transpile<T>(string methodName, Type patchType, string patchMethodName);
 
         /// <summary>Add transpile patch to the given method.</summary>
-        /// <param name="original">The method to patch.</param>
+        /// <param name="methodInfo">The method to patch.</param>
         /// <param name="patchType">The type the patch is in.</param>
         /// <param name="patchMethodName">The name of the patch method.</param>
         void Transpile(MethodInfo methodInfo, Type patchType, string patchMethodName);

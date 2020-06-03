@@ -1,4 +1,6 @@
-﻿namespace OWML.Common
+﻿#pragma warning disable 1591
+
+namespace OWML.Common
 {
     public enum Events
     {

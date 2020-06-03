@@ -13,14 +13,11 @@ namespace OWML.ModHelper.Interaction
 
         private readonly IDictionary<string, InterfaceProxyBuilder> Builders = new Dictionary<string, InterfaceProxyBuilder>();
 
-        /*********
-        ** Public methods
-        *********/
         /// <summary>Construct an instance.</summary>
         public InterfaceProxyFactory()
         {
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName($"StardewModdingAPI.Proxies, Version={this.GetType().Assembly.GetName().Version}, Culture=neutral"), AssemblyBuilderAccess.Run);
-            this.ModuleBuilder = assemblyBuilder.DefineDynamicModule("StardewModdingAPI.Proxies");
+            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName($"OWMLInteraction.Proxies, Version={this.GetType().Assembly.GetName().Version}, Culture=neutral"), AssemblyBuilderAccess.Run);
+            this.ModuleBuilder = assemblyBuilder.DefineDynamicModule("OWMLInteraction.Proxies");
         }
 
         /// <summary>Create an API proxy.</summary>
@@ -39,7 +36,7 @@ namespace OWML.ModHelper.Interaction
 
             // get proxy type
             Type targetType = instance.GetType();
-            string proxyTypeName = $"StardewModdingAPI.Proxies.From<{sourceModID}_{typeof(TInterface).FullName}>_To<{targetModID}_{targetType.FullName}>";
+            string proxyTypeName = $"OWMLInteraction.Proxies.From<{sourceModID}_{typeof(TInterface).FullName}>_To<{targetModID}_{targetType.FullName}>";
             if (!this.Builders.TryGetValue(proxyTypeName, out InterfaceProxyBuilder builder))
             {
                 builder = new InterfaceProxyBuilder(proxyTypeName, this.ModuleBuilder, typeof(TInterface), targetType);

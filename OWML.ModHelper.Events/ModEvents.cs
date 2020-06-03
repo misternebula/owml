@@ -39,6 +39,9 @@ namespace OWML.ModHelper.Events
             }
         }
 
+        /// <summary>Subscribe to the given event.</summary>
+        /// <typeparam name="T">The type of the event.</typeparam>
+        /// <param name="ev">The event to subscribe to.</param>
         public void Subscribe<T>(Common.Events ev) where T : MonoBehaviour
         {
             SubscribeToEvent<T>(ev);

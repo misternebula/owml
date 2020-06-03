@@ -54,11 +54,20 @@ namespace OWML.ModHelper.Events
             }
         }
 
+        /// <summary>Add prefix patch to the given method.</summary>
+        /// <typeparam name="T">The type the method is in.</typeparam>
+        /// <param name="methodName">The name of the method.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void AddPrefix<T>(string methodName, Type patchType, string patchMethodName)
         {
             AddPrefix(GetMethod<T>(methodName), patchType, patchMethodName);
         }
 
+        /// <summary>Add prefix patch to the given method.</summary>
+        /// <param name="original">The method to patch.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void AddPrefix(MethodInfo original, Type patchType, string patchMethodName)
         {
             var prefix = patchType.GetAnyMethod(patchMethodName);
@@ -70,11 +79,20 @@ namespace OWML.ModHelper.Events
             Patch(original, prefix, null, null);
         }
 
+        /// <summary>Add postfix patch to the given method.</summary>
+        /// <typeparam name="T">The type the method is in.</typeparam>
+        /// <param name="methodName">The name of the method.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void AddPostfix<T>(string methodName, Type patchType, string patchMethodName)
         {
             AddPostfix(GetMethod<T>(methodName), patchType, patchMethodName);
         }
 
+        /// <summary>Add postfix patch to the given method.</summary>
+        /// <param name="original">The method to patch.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void AddPostfix(MethodInfo original, Type patchType, string patchMethodName)
         {
             var postfix = patchType.GetAnyMethod(patchMethodName);
@@ -86,21 +104,35 @@ namespace OWML.ModHelper.Events
             Patch(original, null, postfix, null);
         }
 
+        /// <summary>Empty the given method.</summary>
+        /// <typeparam name="T">The type the method is in.</typeparam>
+        /// <param name="methodName">The name of the method.</param>
         public void EmptyMethod<T>(string methodName)
         {
             EmptyMethod(GetMethod<T>(methodName));
         }
 
+        /// <summary>Empty the given method.</summary>
+        /// <param name="methodInfo">The method to clear.</param>
         public void EmptyMethod(MethodInfo methodInfo)
         {
             Transpile(methodInfo, typeof(Patches), nameof(Patches.EmptyMethod));
         }
 
+        /// <summary>Add transpile patch to the given method.</summary>
+        /// <typeparam name="T">The type the method is in.</typeparam>
+        /// <param name="methodName">The name of the method.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void Transpile<T>(string methodName, Type patchType, string patchMethodName)
         {
             Transpile(GetMethod<T>(methodName), patchType, patchMethodName);
         }
 
+        /// <summary>Add transpile patch to the given method.</summary>
+        /// <param name="original">The method to patch.</param>
+        /// <param name="patchType">The type the patch is in.</param>
+        /// <param name="patchMethodName">The name of the patch method.</param>
         public void Transpile(MethodInfo original, Type patchType, string patchMethodName)
         {
             var patchMethod = patchType.GetAnyMethod(patchMethodName);

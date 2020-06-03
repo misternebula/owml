@@ -15,25 +15,26 @@ namespace OWML.ModHelper
             ModHelper = modHelper;
             Configure(modHelper.Config);
             DontDestroyOnLoad(gameObject);
+            Interface = GetApi();
+            if (Interface != null) ModHelper.Console.WriteLine("Interface is not null!");
         }
 
         public virtual void Configure(IModConfig config)
         {
         }
 
+        /// <summary>Returns list of mods that depend on the current mod.</summary>
         public IList<IModBehaviour> GetDependants()
         {
             return ModHelper.Interaction.GetDependants(ModHelper.Manifest.UniqueName);
         }
 
+        /// <summary>Returns dependencies of current mod.</summary>
         public IList<IModBehaviour> GetDependencies()
         {
             return ModHelper.Interaction.GetDependencies(ModHelper.Manifest.UniqueName);
         }
 
-        public void SetInterface(object inter)
-        {
-            this.Interface = inter;
-        }
+        public virtual object GetApi() => null;
     }
 }

@@ -10,16 +10,16 @@ namespace OWML.ModHelper.Interaction
 
         private readonly InterfaceProxyFactory _proxyFactory;
 
-        private readonly string _modUniqueName;
+        private readonly IModManifest _modManifest;
 
         private Dictionary<string, List<IModBehaviour>> _dependantDict = new Dictionary<string, List<IModBehaviour>>();
 
         private Dictionary<string, List<IModBehaviour>> _dependencyDict = new Dictionary<string, List<IModBehaviour>>();
 
-        public ModInteraction(IList<IModBehaviour> list, InterfaceProxyFactory proxyFactory, string modUniqueName)
+        public ModInteraction(IList<IModBehaviour> list, InterfaceProxyFactory proxyFactory, IModManifest manifest)
         {
             _modList = list;
-            _modUniqueName = modUniqueName;
+            _modManifest = manifest;
             _proxyFactory = proxyFactory;
             RegenerateDictionaries();
         }
@@ -49,6 +49,8 @@ namespace OWML.ModHelper.Interaction
             }
         }
 
+        /// <summary>Returns list of mods that depend on the given mod.</summary>
+        /// <param name="dependencyUniqueName">The unique name of the mod.</param>
         public IList<IModBehaviour> GetDependants(string dependencyUniqueName)
         {
             if (_dependantDict.Count != _modList.Count)
@@ -58,6 +60,8 @@ namespace OWML.ModHelper.Interaction
             return _dependantDict[dependencyUniqueName];
         }
 
+        /// <summary>Returns list of dependencies of the given mod.</summary>
+        /// <param name="uniqueName">The unique name of the mod.</param>
         public IList<IModBehaviour> GetDependencies(string uniqueName)
         {
             if (_dependantDict.Count != _modList.Count)
@@ -67,46 +71,46 @@ namespace OWML.ModHelper.Interaction
             return _dependencyDict[uniqueName];
         }
 
+        /// <summary>Return the mod that maches the given name.</summary>
+        /// <param name="uniqueName">The unique name of the mod.</param>
         public IModBehaviour GetMod(string uniqueName)
         {
             return _modList.First(m => m.ModHelper.Manifest.UniqueName == uniqueName);
         }
 
-        public object GetInterface(string uniqueName)
+        private object GetApi(string uniqueName)
         {
-            var mod = _modList.First(m => m.ModHelper.Manifest.UniqueName == uniqueName);
+            var mod = GetMod(uniqueName);
             return mod.Interface;
         }
 
-        public T GetInterface<T>(string uniqueName) where T : class
+        /// <summary>Get the API of a given mod.</summary>
+        /// <typeparam name="TInterface">The interface through which to access the API.</typeparam>
+        /// <param name="uniqueName">The unique name of the mod providing the API.</param>
+        public TInterface GetApi<TInterface>(string uniqueName) where TInterface : class
         {
-            object inter = this.GetInterface(uniqueName);
+            var inter = GetApi(uniqueName);
             if (inter == null)
             {
                 return null;
             }
 
-            if (inter is T castInter)
+            if (inter is TInterface castInter)
             {
                 return castInter;
             }
 
-            return _proxyFactory.CreateProxy<T>(inter, _modUniqueName, uniqueName);
+            return _proxyFactory.CreateProxy<TInterface>(inter, _modManifest.UniqueName, uniqueName);
         }
 
-        /*
-        public T GetMod<T>(string uniqueName) where T : IModBehaviour
-        {
-            var mod = GetMod(uniqueName);
-            return (T)mod;
-        }
-        */
-
+        /// <summary>Returns list of all loaded mods - disabled and enabled.</summary>
         public IList<IModBehaviour> GetMods()
         {
             return _modList;
         }
 
+        /// <summary>Returns true if a given mod is loaded - *not* if the mod is enabled/disabled.</summary>
+        /// <param name="uniqueName">The unique name of the mod.</param>
         public bool ModExists(string uniqueName)
         {
             return _modList.Any(m => m.ModHelper.Manifest.UniqueName == uniqueName);

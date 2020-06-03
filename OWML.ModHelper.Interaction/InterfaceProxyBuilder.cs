@@ -14,9 +14,6 @@ namespace OWML.ModHelper.Interaction
 
         private readonly Type ProxyType;
 
-        /*********
-        ** Public methods
-        *********/
         /// <summary>Construct an instance.</summary>
         /// <param name="name">The type name to generate.</param>
         /// <param name="moduleBuilder">The CLR module in which to create proxy classes.</param>
@@ -77,9 +74,6 @@ namespace OWML.ModHelper.Interaction
         }
 
 
-        /*********
-        ** Private methods
-        *********/
         /// <summary>Define a method which proxies access to a method on the target.</summary>
         /// <param name="proxyBuilder">The proxy type being generated.</param>
         /// <param name="target">The target method.</param>
